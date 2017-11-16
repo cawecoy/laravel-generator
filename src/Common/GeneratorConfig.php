@@ -37,6 +37,7 @@ class GeneratorConfig
     public $pathRoutes;
     public $pathViews;
     public $pathLanguage;
+    public $pathLayout;
     public $modelJsPath;
 
     /* Language Locale variable */
@@ -273,6 +274,12 @@ class GeneratorConfig
             $commandData->addDynamicVariable('$LANGUAGE_PREFIX$', '');
         }
 
+        if (!empty($this->prefixes['layout'])) {
+            $commandData->addDynamicVariable('$LAYOUT_PREFIX$', str_replace('/', '.', $this->prefixes['layout']).'/');
+        } else {
+            $commandData->addDynamicVariable('$LAYOUT_PREFIX$', '');
+        }
+
         if (!empty($this->prefixes['public'])) {
             $commandData->addDynamicVariable('$PUBLIC_PREFIX$', $this->prefixes['public']);
         } else {
@@ -359,6 +366,7 @@ class GeneratorConfig
         $this->prefixes['view'] = explode('.', config('infyom.laravel_generator.prefixes.view', ''));
         $this->prefixes['public'] = explode('/', config('infyom.laravel_generator.prefixes.public', ''));
         $this->prefixes['language'] = explode('/', config('infyom.laravel_generator.prefixes.language', ''));
+        $this->prefixes['layout'] = explode('/', config('infyom.laravel_generator.prefixes.layout', ''));
 
         if ($this->getOption('prefix')) {
             $multiplePrefixes = explode(',', $this->getOption('prefix'));
@@ -368,6 +376,7 @@ class GeneratorConfig
             $this->prefixes['view'] = array_merge($this->prefixes['view'], $multiplePrefixes);
             $this->prefixes['public'] = array_merge($this->prefixes['public'], $multiplePrefixes);
             $this->prefixes['language'] = array_merge($this->prefixes['language'], $multiplePrefixes);
+            $this->prefixes['layout'] = array_merge($this->prefixes['layout'], $multiplePrefixes);
         }
 
         $this->prefixes['route'] = array_diff($this->prefixes['route'], ['']);
@@ -375,6 +384,7 @@ class GeneratorConfig
         $this->prefixes['view'] = array_diff($this->prefixes['view'], ['']);
         $this->prefixes['public'] = array_diff($this->prefixes['public'], ['']);
         $this->prefixes['language'] = array_diff($this->prefixes['language'], ['']);
+        $this->prefixes['layout'] = array_diff($this->prefixes['layout'], ['']);
 
         $routePrefix = '';
 
@@ -447,6 +457,18 @@ class GeneratorConfig
         }
 
         $this->prefixes['language'] = $languagePrefix;
+
+        $layoutPrefix = '';
+
+        foreach ($this->prefixes['layout'] as $singlePrefix) {
+            $layoutPrefix .= Str::camel($singlePrefix).'/';
+        }
+
+        if (!empty($layoutPrefix)) {
+            $layoutPrefix = substr($layoutPrefix, 0, strlen($layoutPrefix) - 1);
+        }
+
+        $this->prefixes['layout'] = $layoutPrefix;
     }
 
     public function overrideOptionsFromJsonFile($jsonData)

@@ -142,6 +142,8 @@ return [
         'public' => '',
 
         'language' => '', // using backend will create return __('backend.?.string') type the backend language directory
+
+        'layout' => '', // using backend will create @layout('backend.layout.app') type the backend layout directory
     ],
 
     /*
