@@ -275,7 +275,7 @@ class GeneratorConfig
         }
 
         if (!empty($this->prefixes['layout'])) {
-            $commandData->addDynamicVariable('$LAYOUT_PREFIX$', str_replace('/', '.', $this->prefixes['layout']).'/');
+            $commandData->addDynamicVariable('$LAYOUT_PREFIX$', $this->prefixes['layout'].'.');
         } else {
             $commandData->addDynamicVariable('$LAYOUT_PREFIX$', '');
         }
