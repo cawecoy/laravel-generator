@@ -19,6 +19,7 @@ class GeneratorConfig
     public $nsRequest;
     public $nsRequestBase;
     public $nsController;
+    public $nsControllerForRoutes;
     public $nsBaseController;
 
     /* Path variables */
@@ -139,6 +140,7 @@ class GeneratorConfig
         $this->nsRequestBase = config('infyom.laravel_generator.namespace.request', 'App\Http\Requests');
         $this->nsBaseController = config('infyom.laravel_generator.namespace.controller', 'App\Http\Controllers');
         $this->nsController = config('infyom.laravel_generator.namespace.controller', 'App\Http\Controllers').$prefix;
+        $this->nsControllerForRoutes = '\\'.config('infyom.laravel_generator.namespace.controller', 'App\Http\Controllers').$prefix.'\\';
     }
 
     public function loadPaths()
@@ -229,6 +231,7 @@ class GeneratorConfig
 
         $commandData->addDynamicVariable('$NAMESPACE_BASE_CONTROLLER$', $this->nsBaseController);
         $commandData->addDynamicVariable('$NAMESPACE_CONTROLLER$', $this->nsController);
+        $commandData->addDynamicVariable('$NAMESPACE_CONTROLLER_FOR_ROUTES$', $this->nsControllerForRoutes);
         $commandData->addDynamicVariable('$NAMESPACE_REQUEST$', $this->nsRequest);
         $commandData->addDynamicVariable('$NAMESPACE_REQUEST_BASE$', $this->nsRequestBase);
 
