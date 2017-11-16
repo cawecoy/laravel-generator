@@ -57,7 +57,7 @@ class $MODEL_NAME$Controller extends AppBaseController
 
         Flash::success(__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.store.success'));
 
-        return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index'));
+        return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.show', $$MODEL_NAME_CAMEL$->$PRIMARY_KEY_NAME$));
     }
 
     /**
@@ -122,7 +122,7 @@ class $MODEL_NAME$Controller extends AppBaseController
 
         Flash::success(__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.update.success'));
 
-        return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index'));
+        return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.edit', $$MODEL_NAME_CAMEL$->$PRIMARY_KEY_NAME$));
     }
 
     /**
