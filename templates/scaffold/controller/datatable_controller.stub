@@ -142,9 +142,11 @@ class $MODEL_NAME$Controller extends AppBaseController
             return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index'));
         }
 
+        $name = $$MODEL_NAME_CAMEL$->$PRIMARY_KEY_NAME$;
+
         $this->$MODEL_NAME_CAMEL$Repository->delete($id);
 
-        Flash::success(__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.destroy.success'));
+        Flash::success(__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.destroy.success', ['name' => $name]));
 
         return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index'));
     }

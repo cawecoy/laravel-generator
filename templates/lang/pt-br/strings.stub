@@ -15,7 +15,7 @@ return [
 
     'store.success' =>  '$MODEL_NAME_HUMAN$ salvo com sucesso.',
     'update.success' => '$MODEL_NAME_HUMAN$ atualizado com sucesso.',
-    'destroy.success'=> '$MODEL_NAME_HUMAN$ deletado com sucesso.',
+    'destroy.success'=> '$MODEL_NAME_HUMAN$ :name deletado com sucesso.',
     'notfound' =>       '$MODEL_NAME_HUMAN$ não encontrado(a).',
 
     'sEmptyTable' =>    'Nenhum registro encontrado',

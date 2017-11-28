@@ -13,10 +13,10 @@ return [
     'areyousure' =>     'Are you sure?',
     'form' =>           'Form',
 
-    'store.success' =>  ':name saved successfully.',
-    'update.success' => ':name updated successfully.',
-    'destroy.success'=> ':name deleted successfully.',
-    'notfound' =>       ':name not found.',
+    'store.success' =>  '$MODEL_NAME_HUMAN$ saved successfully.',
+    'update.success' => '$MODEL_NAME_HUMAN$ updated successfully.',
+    'destroy.success'=> '$MODEL_NAME_HUMAN$ :name deleted successfully.',
+    'notfound' =>       '$MODEL_NAME_HUMAN$ not found.',
 
     'sEmptyTable'=>     'No data available in table',
     'sInfo'=>           'Showing _START_ to _END_ of _TOTAL_ entries',
