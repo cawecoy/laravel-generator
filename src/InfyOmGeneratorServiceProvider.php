@@ -16,6 +16,7 @@ use InfyOm\Generator\Commands\Publish\LayoutPublishCommand;
 use InfyOm\Generator\Commands\Publish\PublishTemplateCommand;
 use InfyOm\Generator\Commands\Publish\VueJsLayoutPublishCommand;
 use InfyOm\Generator\Commands\RollbackGeneratorCommand;
+use InfyOm\Generator\Commands\Scaffold\BreadcrumbsGeneratorCommand;
 use InfyOm\Generator\Commands\Scaffold\ControllerGeneratorCommand;
 use InfyOm\Generator\Commands\Scaffold\LanguageGeneratorCommand;
 use InfyOm\Generator\Commands\Scaffold\RequestsGeneratorCommand;
@@ -100,6 +101,10 @@ class InfyOmGeneratorServiceProvider extends ServiceProvider
 
         $this->app->singleton('infyom.scaffold.requests', function ($app) {
             return new RequestsGeneratorCommand();
+        });
+
+        $this->app->singleton('infyom.scaffold.breadcrumbs', function ($app) {
+            return new BreadcrumbsGeneratorCommand();
         });
 
         $this->app->singleton('infyom.scaffold.language', function ($app) {

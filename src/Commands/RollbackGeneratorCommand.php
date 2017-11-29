@@ -12,6 +12,7 @@ use InfyOm\Generator\Generators\MigrationGenerator;
 use InfyOm\Generator\Generators\ModelGenerator;
 use InfyOm\Generator\Generators\RepositoryGenerator;
 use InfyOm\Generator\Generators\RepositoryTestGenerator;
+use InfyOm\Generator\Generators\Scaffold\BreadcrumbsGenerator;
 use InfyOm\Generator\Generators\Scaffold\ControllerGenerator;
 use InfyOm\Generator\Generators\Scaffold\LanguageGenerator;
 use InfyOm\Generator\Generators\Scaffold\MenuGenerator;
@@ -112,6 +113,9 @@ class RollbackGeneratorCommand extends Command
 
         $languageGenerator = new LanguageGenerator($this->commandData);
         $languageGenerator->rollback();
+
+        $breadcrumbsGenerator = new BreadcrumbsGenerator($this->commandData);
+        $breadcrumbsGenerator->rollback();
 
         $routeGenerator = new RoutesGenerator($this->commandData);
         $routeGenerator->rollback();

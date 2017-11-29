@@ -33,6 +33,7 @@ class GeneratorConfig
     public $pathApiTests;
     public $pathApiTestTraits;
 
+    public $pathBreadcrumbs;
     public $pathController;
     public $pathRequest;
     public $pathRoutes;
@@ -206,6 +207,8 @@ class GeneratorConfig
             'infyom.laravel_generator.path.views',
             base_path('resources/views/')
         ).$viewPrefix.$this->mSnakePlural.'/';
+
+        $this->pathBreadcrumbs = config('infyom.laravel_generator.path.breadcrumbs', base_path('routes/breadcrumbs.php'));
 
         $this->pathLanguage = config('infyom.laravel_generator.path.language', base_path('resources/lang/'))
             .$this->locale

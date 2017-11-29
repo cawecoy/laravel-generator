@@ -1,0 +1,16 @@
+
+Breadcrumbs::register('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$', function ($breadcrumbs) {
+    $breadcrumbs->push(trans_choice('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.model.name', 2), route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index'));
+});
+Breadcrumbs::register('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.create', function ($breadcrumbs) {
+    $breadcrumbs->parent('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$');
+    $breadcrumbs->push(__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.addnew'), route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.create'));
+});
+Breadcrumbs::register('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.show', function ($breadcrumbs, $$MODEL_NAME_CAMEL$) {
+    $breadcrumbs->parent('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$');
+    $breadcrumbs->push(__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.show'), route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.show', ['id' => $$MODEL_NAME_CAMEL$->$PRIMARY_KEY_NAME$]));
+});
+Breadcrumbs::register('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.edit', function ($breadcrumbs, $$MODEL_NAME_CAMEL$) {
+    $breadcrumbs->parent('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$');
+    $breadcrumbs->push(__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.edit'), route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.edit', ['id' => $$MODEL_NAME_CAMEL$->$PRIMARY_KEY_NAME$]));
+});

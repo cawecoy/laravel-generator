@@ -46,6 +46,8 @@ return [
         'modelJs'           => base_path('resources/assets/js/models/'),
 
         'language'          => base_path('resources/lang/'),
+
+        'breadcrumbs'       => base_path('routes/breadcrumbs.php'),
     ],
 
     /*

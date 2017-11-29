@@ -12,6 +12,7 @@ use InfyOm\Generator\Generators\MigrationGenerator;
 use InfyOm\Generator\Generators\ModelGenerator;
 use InfyOm\Generator\Generators\RepositoryGenerator;
 use InfyOm\Generator\Generators\RepositoryTestGenerator;
+use InfyOm\Generator\Generators\Scaffold\BreadcrumbsGenerator;
 use InfyOm\Generator\Generators\Scaffold\ControllerGenerator;
 use InfyOm\Generator\Generators\Scaffold\LanguageGenerator;
 use InfyOm\Generator\Generators\Scaffold\MenuGenerator;
@@ -122,6 +123,11 @@ class BaseCommand extends Command
         if (!$this->isSkip('language')) {
             $languageGenerator = new LanguageGenerator($this->commandData);
             $languageGenerator->generate();
+        }
+
+        if (!$this->isSkip('breadcrumbs')) {
+            $breadcrumbsGenerator = new BreadcrumbsGenerator($this->commandData);
+            $breadcrumbsGenerator->generate();
         }
 
         if (!$this->isSkip('routes') and !$this->isSkip('scaffold_routes')) {

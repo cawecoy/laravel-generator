@@ -7,6 +7,7 @@ return [
     'addnew' =>         'Adicionar Novo',
     'edit' =>           'Editar',
     'save' =>           'Salvar',
+    'show' =>           'Exibir',
     'cancel' =>         'Cancelar',
     'delete' =>         'Deletar',
     'back' =>           'Voltar',
