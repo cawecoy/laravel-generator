@@ -16,6 +16,7 @@ use InfyOm\Generator\Generators\Scaffold\BreadcrumbsGenerator;
 use InfyOm\Generator\Generators\Scaffold\ControllerGenerator;
 use InfyOm\Generator\Generators\Scaffold\LanguageGenerator;
 use InfyOm\Generator\Generators\Scaffold\MenuGenerator;
+use InfyOm\Generator\Generators\Scaffold\PermissionsGenerator;
 use InfyOm\Generator\Generators\Scaffold\RequestGenerator;
 use InfyOm\Generator\Generators\Scaffold\RoutesGenerator;
 use InfyOm\Generator\Generators\Scaffold\ViewGenerator;
@@ -105,6 +106,12 @@ class BaseCommand extends Command
 
     public function generateScaffoldItems()
     {
+
+        if (!$this->isSkip('permissions')) {
+            $permissionsGenerator = new PermissionsGenerator($this->commandData);
+            $permissionsGenerator->generate();
+        }
+
         if (!$this->isSkip('requests') and !$this->isSkip('scaffold_requests')) {
             $requestGenerator = new RequestGenerator($this->commandData);
             $requestGenerator->generate();

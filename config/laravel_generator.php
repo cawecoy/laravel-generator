@@ -48,6 +48,8 @@ return [
         'language'          => base_path('resources/lang/'),
 
         'breadcrumbs'       => base_path('routes/breadcrumbs.php'),
+
+        'seed'              => base_path('database/seeds/'),
     ],
 
     /*

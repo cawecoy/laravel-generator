@@ -16,6 +16,7 @@ use InfyOm\Generator\Generators\Scaffold\BreadcrumbsGenerator;
 use InfyOm\Generator\Generators\Scaffold\ControllerGenerator;
 use InfyOm\Generator\Generators\Scaffold\LanguageGenerator;
 use InfyOm\Generator\Generators\Scaffold\MenuGenerator;
+use InfyOm\Generator\Generators\Scaffold\PermissionsGenerator;
 use InfyOm\Generator\Generators\Scaffold\RequestGenerator;
 use InfyOm\Generator\Generators\Scaffold\RoutesGenerator;
 use InfyOm\Generator\Generators\Scaffold\ViewGenerator;
@@ -107,6 +108,9 @@ class RollbackGeneratorCommand extends Command
 
         $controllerGenerator = new ControllerGenerator($this->commandData);
         $controllerGenerator->rollback();
+
+        $permissionsGenerator = new PermissionsGenerator($this->commandData);
+        $permissionsGenerator->rollback();
 
         $viewGenerator = new ViewGenerator($this->commandData);
         $viewGenerator->rollback();

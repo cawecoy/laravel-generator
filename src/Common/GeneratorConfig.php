@@ -34,6 +34,7 @@ class GeneratorConfig
     public $pathApiTestTraits;
 
     public $pathBreadcrumbs;
+    public $pathSeed;
     public $pathController;
     public $pathRequest;
     public $pathRoutes;
@@ -193,6 +194,8 @@ class GeneratorConfig
         $this->pathApiTests = config('infyom.laravel_generator.path.api_test', base_path('tests/'));
 
         $this->pathApiTestTraits = config('infyom.laravel_generator.path.test_trait', base_path('tests/traits/'));
+
+        $this->pathSeed = config('infyom.laravel_generator.path.seed', base_path('database/seed/'));
 
         $this->pathController = config(
             'infyom.laravel_generator.path.controller',

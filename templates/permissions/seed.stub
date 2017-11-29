@@ -1,0 +1,59 @@
+<?php
+
+use App\Role;
+use App\Permission;
+use Illuminate\Database\Seeder;
+
+class $MODEL_NAME$PermissionsTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $permissions = [
+            [
+                'name' => '$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.store',
+                'roles' => ['Admin'],
+            ],
+            [
+                'name' => '$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index',
+                'roles' => ['Admin'],
+            ],
+            [
+                'name' => '$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.create',
+                'roles' => ['Admin'],
+            ],
+            [
+                'name' => '$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.update',
+                'roles' => ['Admin'],
+            ],
+            [
+                'name' => '$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.destroy',
+                'roles' => ['Admin'],
+            ],
+            [
+                'name' => '$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.show',
+                'roles' => ['Admin'],
+            ],
+            [
+                'name' => '$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.edit',
+                'roles' => ['Admin'],
+            ],
+        ];
+
+        foreach ($permissions as $permission) {
+            $permission_name = $permission['name'];
+            $p = new Permission();
+            $p->name = $permission_name;
+            $p->save();
+            foreach ($permission['roles'] as $role_name) {
+                $role = Role::where('name', '=', $role_name)->firstOrFail();
+                $p = Permission::where('name', '=', $permission_name)->first();
+                $role->givePermissionTo($p);
+            }
+        }
+    }
+}
