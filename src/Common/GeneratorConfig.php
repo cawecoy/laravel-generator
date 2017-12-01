@@ -195,7 +195,7 @@ class GeneratorConfig
 
         $this->pathApiTestTraits = config('infyom.laravel_generator.path.test_trait', base_path('tests/traits/'));
 
-        $this->pathSeed = config('infyom.laravel_generator.path.seed', base_path('database/seed/'));
+        $this->pathSeed = config('infyom.laravel_generator.path.seed', base_path('database/seeds/'));
 
         $this->pathController = config(
             'infyom.laravel_generator.path.controller',
