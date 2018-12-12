@@ -27,51 +27,60 @@ class LayoutPublishCommand extends PublishBaseCommand
      */
     public function handle()
     {
-        $this->copyView();
+        $this->copyFiles();
         $this->updateRoutes();
         $this->publishHomeController();
     }
 
-    private function copyView()
+    private function copyFiles()
     {
         $viewsPath = config('infyom.laravel_generator.path.views', base_path('resources/views/'));
+        $publicPath = config('infyom.laravel_generator.path.public', base_path('public/'));
         $templateType = config('infyom.laravel_generator.templates', 'core-templates');
 
-        $this->createDirectories($viewsPath);
+        $this->createDirectories($viewsPath, $publicPath);
 
-        $files = $this->getViews();
+        $files = $this->getFiles($viewsPath, $publicPath);
 
-        foreach ($files as $stub => $blade) {
+        foreach ($files as $stub => $destinationFile) {
             $sourceFile = get_template_file_path('scaffold/'.$stub, $templateType);
-            $destinationFile = $viewsPath.$blade;
-            $this->publishFile($sourceFile, $destinationFile, $blade);
+            $this->publishFile($sourceFile, $destinationFile, $destinationFile);
         }
     }
 
-    private function createDirectories($viewsPath)
+    private function createDirectories($viewsPath, $publicPath)
     {
         FileUtil::createDirectoryIfNotExist($viewsPath.'layouts');
         FileUtil::createDirectoryIfNotExist($viewsPath.'auth');
 
         FileUtil::createDirectoryIfNotExist($viewsPath.'auth/passwords');
         FileUtil::createDirectoryIfNotExist($viewsPath.'auth/emails');
+        
+        FileUtil::createDirectoryIfNotExist($publicPath.'vendor/laravel-generator');
     }
 
-    private function getViews()
+    private function getFiles($viewsPath, $publicPath)
     {
         return [
-            'layouts/app'               => 'layouts/app.blade.php',
-            'layouts/sidebar'           => 'layouts/sidebar.blade.php',
-            'layouts/datatables_css'    => 'layouts/datatables_css.blade.php',
-            'layouts/datatables_js'     => 'layouts/datatables_js.blade.php',
-            'layouts/menu'              => 'layouts/menu.blade.php',
-            'layouts/home'              => 'home.blade.php',
-            'partials/breadcrumbs_no_html' => 'partials/breadcrumbs_no_html.blade.php',
-            'auth/login'                => 'auth/login.blade.php',
-            'auth/register'             => 'auth/register.blade.php',
-            'auth/email'                => 'auth/passwords/email.blade.php',
-            'auth/reset'                => 'auth/passwords/reset.blade.php',
-            'emails/password'           => 'auth/emails/password.blade.php',
+            'layouts/form-submission'       => $publicPath.'vendor/laravel-generator/form-submission.js',
+            'layouts/app'                   => $viewsPath.'layouts/app.blade.php',
+            'layouts/sidebar'               => $viewsPath.'layouts/sidebar.blade.php',
+            'layouts/datatables_css'        => $viewsPath.'layouts/datatables_css.blade.php',
+            'layouts/datatables_js'         => $viewsPath.'layouts/datatables_js.blade.php',
+            'layouts/menu'                  => $viewsPath.'layouts/menu.blade.php',
+            'layouts/home'                  => $viewsPath.'home.blade.php',
+            'partials/breadcrumbs_no_html'  => $viewsPath.'partials/breadcrumbs_no_html.blade.php',
+            'auth/login'                    => $viewsPath.'auth/login.blade.php',
+            'auth/register'                 => $viewsPath.'auth/register.blade.php',
+            'auth/email'                    => $viewsPath.'auth/passwords/email.blade.php',
+            'auth/reset'                    => $viewsPath.'auth/passwords/reset.blade.php',
+            'emails/password'               => $viewsPath.'auth/emails/password.blade.php',
+        ];
+    }
+
+    private function getScripts()
+    {
+        return [
         ];
     }
 

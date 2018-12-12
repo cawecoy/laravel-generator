@@ -50,6 +50,8 @@ return [
         'breadcrumbs'       => base_path('routes/breadcrumbs.php'),
 
         'seed'              => base_path('database/seeds/'),
+
+        'public'           => base_path('public/'),
     ],
 
     /*
