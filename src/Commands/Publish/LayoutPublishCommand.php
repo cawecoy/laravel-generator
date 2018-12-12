@@ -66,6 +66,7 @@ class LayoutPublishCommand extends PublishBaseCommand
             'layouts/datatables_js'     => 'layouts/datatables_js.blade.php',
             'layouts/menu'              => 'layouts/menu.blade.php',
             'layouts/home'              => 'home.blade.php',
+            'partials/breadcrumbs_no_html' => 'partials/breadcrumbs_no_html.blade.php',
             'auth/login'                => 'auth/login.blade.php',
             'auth/register'             => 'auth/register.blade.php',
             'auth/email'                => 'auth/passwords/email.blade.php',

@@ -75,7 +75,6 @@ class $MODEL_NAME$DataTable extends DataTable
                         'sSortDescending' => __('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.sSortDescending'),
                     ],
                     'buttons' => [
-                        'create' => __('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.create'),
                         'export' => __('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.export'),
                         'print' => __('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.print'),
                         'reset' => __('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.reset'),
