@@ -17,6 +17,8 @@ class $MODEL_NAME$Repository extends BaseRepository
 
     /**
      * Configure the Model
+     * 
+     * @return \$NAMESPACE_MODEL$\$MODEL_NAME$
      **/
     public function model()
     {
