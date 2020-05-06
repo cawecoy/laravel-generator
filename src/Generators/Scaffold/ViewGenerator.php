@@ -42,7 +42,9 @@ class ViewGenerator extends BaseGenerator
             $viewsToBeGenerated = explode(',', $this->commandData->getOption('views'));
 
             if (in_array('index', $viewsToBeGenerated)) {
-                $this->generateTable();
+                if (!$this->commandData->getAddOn('grid')) {
+                    $this->generateTable();
+                }
                 $this->generateIndex();
             }
 
@@ -63,7 +65,9 @@ class ViewGenerator extends BaseGenerator
                 $this->generateShow();
             }
         } else {
-            $this->generateTable();
+            if (!$this->commandData->getAddOn('grid')) {
+                $this->generateTable();
+            }
             $this->generateIndex();
             $this->generateFields();
             $this->generateCreate();
@@ -160,7 +164,12 @@ class ViewGenerator extends BaseGenerator
 
     private function generateIndex()
     {
-        $templateData = get_template('scaffold.views.index', $this->templateType);
+        if (!$this->commandData->getAddOn('grid')) {
+            $templateData = get_template('scaffold.views.index', $this->templateType);
+        }
+        else{
+            $templateData = get_template('scaffold.views.index-grid', $this->templateType);
+        }
 
         $templateData = fill_template($this->commandData->dynamicVars, $templateData);
 

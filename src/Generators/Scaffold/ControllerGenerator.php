@@ -30,25 +30,82 @@ class ControllerGenerator extends BaseGenerator
 
     public function generate()
     {
-        if ($this->commandData->getAddOn('datatables')) {
-            $templateData = get_template('scaffold.controller.datatable_controller', 'laravel-generator');
+        if ($this->commandData->getAddOn('grid')) {
+            $templateData = get_template('scaffold.controller.grid_controller', 'laravel-generator');
 
-            $this->generateDataTable();
-        } else {
-            $templateData = get_template('scaffold.controller.controller', 'laravel-generator');
+            $templateData = fill_template($this->commandData->dynamicVars, $templateData);
 
-            $paginate = $this->commandData->getOption('paginate');
+            $headerFieldTemplate = get_template('scaffold.controller.grid.column', 'laravel-generator');
+            $dateFilterHeaderFieldTemplate = get_template('scaffold.controller.grid.date_range_picker', 'laravel-generator');
 
-            if ($paginate) {
-                $templateData = str_replace('$RENDER_TYPE$', 'paginate('.$paginate.')', $templateData);
-            } else {
-                $templateData = str_replace('$RENDER_TYPE$', 'all()', $templateData);
+            $headerFields = [];
+            $dateFilterHeaderFields = [];
+
+            foreach ($this->commandData->fields as $field) {
+                if (!$field->inIndex) {
+                    continue;
+                }
+                $this->commandData->dynamicVars['$GRID_SET_SORTING$'] = null;
+                $this->commandData->dynamicVars['$GRID_FILTER$'] = null;
+                if($field->isPrimary){
+                    $this->commandData->dynamicVars['$GRID_SET_SORTING$'] = '->setSorting(Grid::SORT_DESC)';
+                }
+                if($field->isSearchable){
+                    if($field->dbInput == 'boolean'){
+                        $fielterTemplateData = get_template('scaffold.controller.grid.add_select_filter_config', 'laravel-generator');
+                        $this->commandData->dynamicVars['$GRID_FILTER$'] = fill_template($this->commandData->dynamicVars, $fielterTemplateData);
+                    }
+                    else if($field->dbInput != 'timestamp'){
+                        $fielterTemplateData = get_template('scaffold.controller.grid.add_filter_config', 'laravel-generator');
+                        $this->commandData->dynamicVars['$GRID_FILTER$'] = fill_template($this->commandData->dynamicVars, $fielterTemplateData);
+                    }
+                    else{
+                        $dateFilterHeaderFields[] = fill_template_with_field_data(
+                            $this->commandData->dynamicVars,
+                            $this->commandData->fieldNamesMapping,
+                            $dateFilterHeaderFieldTemplate,
+                            $field
+                        );
+                    }
+                }
+                $headerFields[] = fill_template_with_field_data(
+                    $this->commandData->dynamicVars,
+                    $this->commandData->fieldNamesMapping,
+                    $headerFieldTemplate,
+                    $field
+                );
             }
+
+            $fields = implode(infy_tabs(5), $headerFields);
+
+            $templateData = str_replace('$GRID_COLUMNS$', $fields, $templateData);
+
+            $dateFilterFields = implode(infy_tabs(9), $dateFilterHeaderFields);
+
+            $templateData = str_replace('$GRID_THEAD_COMPONENTS$', $dateFilterFields, $templateData);
+
+            FileUtil::createFile($this->path, $this->fileName, $templateData);
+        } else{
+            if ($this->commandData->getAddOn('datatables')) {
+                $templateData = get_template('scaffold.controller.datatable_controller', 'laravel-generator');
+
+                $this->generateDataTable();
+            } else {
+                $templateData = get_template('scaffold.controller.controller', 'laravel-generator');
+
+                $paginate = $this->commandData->getOption('paginate');
+
+                if ($paginate) {
+                    $templateData = str_replace('$RENDER_TYPE$', 'paginate('.$paginate.')', $templateData);
+                } else {
+                    $templateData = str_replace('$RENDER_TYPE$', 'all()', $templateData);
+                }
+            }
+
+            $templateData = fill_template($this->commandData->dynamicVars, $templateData);
+
+            FileUtil::createFile($this->path, $this->fileName, $templateData);
         }
-
-        $templateData = fill_template($this->commandData->dynamicVars, $templateData);
-
-        FileUtil::createFile($this->path, $this->fileName, $templateData);
 
         $this->commandData->commandComment("\nController created: ");
         $this->commandData->commandInfo($this->fileName);

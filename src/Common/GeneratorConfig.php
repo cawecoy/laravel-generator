@@ -80,6 +80,7 @@ class GeneratorConfig
         'paginate',
         'skip',
         'datatables',
+        'grid',
         'views',
         'relations',
     ];
@@ -364,6 +365,14 @@ class GeneratorConfig
                 $this->addOns['datatables'] = true;
             } else {
                 $this->addOns['datatables'] = false;
+            }
+        }
+
+        if (!empty($this->options['grid'])) {
+            if (strtolower($this->options['grid']) == 'true') {
+                $this->addOns['grid'] = true;
+            } else {
+                $this->addOns['grid'] = false;
             }
         }
     }

@@ -1,0 +1,261 @@
+<?php
+
+namespace $NAMESPACE_CONTROLLER$;
+
+use $NAMESPACE_APP$\$MODEL_NAME$;
+use $NAMESPACE_REQUEST$;
+use $NAMESPACE_REQUEST$\Create$MODEL_NAME$Request;
+use $NAMESPACE_REQUEST$\Update$MODEL_NAME$Request;
+use $NAMESPACE_REPOSITORY$\$MODEL_NAME$Repository;
+use $NAMESPACE_APP$\Http\Controllers\AppBaseController;
+use Flash;
+use Response;
+use Grids;
+use HTML;
+use Nayjest\Grids\Components\Base\RenderableRegistry;
+use Nayjest\Grids\Components\Filters\DateRangePicker;
+use Nayjest\Grids\Components\Laravel5\Pager;
+use Nayjest\Grids\Components\CsvExport;
+use Nayjest\Grids\Components\ColumnHeadersRow;
+use Nayjest\Grids\Components\ColumnsHider;
+use Nayjest\Grids\Components\ExcelExport;
+use Nayjest\Grids\Components\FiltersRow;
+use Nayjest\Grids\Components\HtmlTag;
+use Nayjest\Grids\Components\OneCellRow;
+use Nayjest\Grids\Components\RecordsPerPage;
+use Nayjest\Grids\Components\ShowingRecords;
+use Nayjest\Grids\Components\THead;
+use Nayjest\Grids\Components\TFoot;
+use Nayjest\Grids\EloquentDataProvider;
+use Nayjest\Grids\FieldConfig;
+use Nayjest\Grids\FilterConfig;
+use Nayjest\Grids\SelectFilterConfig;
+use Nayjest\Grids\Grid;
+use Nayjest\Grids\GridConfig;
+
+class $MODEL_NAME$Controller extends AppBaseController
+{
+    /** @var  $MODEL_NAME$Repository */
+    private $$MODEL_NAME_CAMEL$Repository;
+
+    public function __construct($MODEL_NAME$Repository $$MODEL_NAME_CAMEL$Repo)
+    {
+        $this->$MODEL_NAME_CAMEL$Repository = $$MODEL_NAME_CAMEL$Repo;
+        $this->middleware(['auth', 'permission']);
+    }
+
+    /**
+     * Display a listing of the $MODEL_NAME$.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $query = (new $MODEL_NAME$)->query();
+        $provider = new EloquentDataProvider($query);
+
+        $grid = new Grid(
+            (new GridConfig)
+                ->setDataProvider($provider)
+                ->setName('$MODEL_NAME_PLURAL_SNAKE$')
+                ->setPageSize(15)
+                ->setColumns([
+                    $GRID_COLUMNS$
+                    (new FieldConfig)
+                        ->setName('action')
+                        ->setLabel(__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.action'))
+                        ->setCallback(function ($dataColumn, $dataRow) {
+                            $actions = '';
+                            if(auth()->user()->can('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.show')){
+                                $actions .=
+                                    '<a href="'.route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.show', $dataRow->getCellValue('id')).'" title="'.__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.show').'" class="btn btn-default btn-xs">
+                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                    </a>';
+                            }
+                            if(auth()->user()->can('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.edit')){
+                                $actions .=
+                                    '<a href="'.route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.edit', $dataRow->getCellValue('id')).'" title="'.__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.edit').'" class="btn btn-default btn-xs">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                    </a>';
+                            }
+                            if(auth()->user()->can('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.destroy')){
+                                $actions .= '<button type="button" class="btn btn-danger btn-xs form-delete-confirmation" title="'.__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.delete').'" data-url="'.route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.show', $dataRow->getCellValue('id')).'">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                             </button>';
+                            }
+                            return '<div class="action">'.$actions.'</div>';
+                        })
+                ])
+                ->setComponents([
+                    (new THead)
+                        ->setComponents([
+                            (new ColumnHeadersRow),
+                            (new FiltersRow)
+                                ->addComponents([
+                                    $GRID_THEAD_COMPONENTS$
+                                ])
+                            ,
+                        ])
+                    ,
+                    (new TFoot)
+                        ->setComponents([
+                            (new OneCellRow)
+                                ->setRenderSection(RenderableRegistry::SECTION_END)
+                                ->setComponents([
+                                    (new RecordsPerPage)
+                                        ->setVariants([
+                                            10,
+                                            50,
+                                            100,
+                                            1000
+                                        ])
+                                    ,
+                                    new ColumnsHider,
+                                    (new CsvExport)
+                                        ->setFileName(trans_choice('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.model.name', 2).' ' . date('d/m/Y'))
+                                    ,
+                                    new ExcelExport(),
+                                    (new HtmlTag)
+                                        ->setContent('<span class="glyphicon glyphicon-refresh"></span> '.__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.filter'))
+                                        ->setTagName('button')
+                                        ->setRenderSection(RenderableRegistry::SECTION_END)
+                                        ->setAttributes([
+                                            'class' => 'btn btn-success btn-sm'
+                                        ])
+                                ])
+                            ,
+                            (new OneCellRow)
+                                ->setComponents([
+                                    new Pager,
+                                    (new HtmlTag)
+                                        ->setAttributes(['class' => 'pull-right'])
+                                        ->addComponent(new ShowingRecords)
+                                    ,
+                                ])
+                        ])
+                ])
+
+        );
+        $grid = $grid->render();
+        return view('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.index')->with(compact('grid'));
+    }
+
+    /**
+     * Show the form for creating a new $MODEL_NAME$.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return view('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.create');
+    }
+
+    /**
+     * Store a newly created $MODEL_NAME$ in storage.
+     *
+     * @param Create$MODEL_NAME$Request $request
+     *
+     * @return Response
+     */
+    public function store(Create$MODEL_NAME$Request $request)
+    {
+        $input = $request->all();
+
+        $$MODEL_NAME_CAMEL$ = $this->$MODEL_NAME_CAMEL$Repository->create($input);
+
+        Flash::success(__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.store.success'));
+
+        return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.show', $$MODEL_NAME_CAMEL$->$PRIMARY_KEY_NAME$));
+    }
+
+    /**
+     * Display the specified $MODEL_NAME$.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function show($id)
+    {
+        $$MODEL_NAME_CAMEL$ = $this->$MODEL_NAME_CAMEL$Repository->findWithoutFail($id);
+
+        if (empty($$MODEL_NAME_CAMEL$)) {
+            Flash::error(__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.notfound'));
+
+            return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index'));
+        }
+
+        return view('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.show')->with('$MODEL_NAME_CAMEL$', $$MODEL_NAME_CAMEL$);
+    }
+
+    /**
+     * Show the form for editing the specified $MODEL_NAME$.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $$MODEL_NAME_CAMEL$ = $this->$MODEL_NAME_CAMEL$Repository->findWithoutFail($id);
+
+        if (empty($$MODEL_NAME_CAMEL$)) {
+            Flash::error(__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.notfound'));
+
+            return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index'));
+        }
+
+        return view('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.edit')->with('$MODEL_NAME_CAMEL$', $$MODEL_NAME_CAMEL$);
+    }
+
+    /**
+     * Update the specified $MODEL_NAME$ in storage.
+     *
+     * @param  int              $id
+     * @param Update$MODEL_NAME$Request $request
+     *
+     * @return Response
+     */
+    public function update($id, Update$MODEL_NAME$Request $request)
+    {
+        $$MODEL_NAME_CAMEL$ = $this->$MODEL_NAME_CAMEL$Repository->findWithoutFail($id);
+
+        if (empty($$MODEL_NAME_CAMEL$)) {
+            Flash::error(__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.notfound'));
+
+            return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index'));
+        }
+
+        $$MODEL_NAME_CAMEL$ = $this->$MODEL_NAME_CAMEL$Repository->update($request->all(), $id);
+
+        Flash::success(__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.update.success'));
+
+        return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.edit', $$MODEL_NAME_CAMEL$->$PRIMARY_KEY_NAME$));
+    }
+
+    /**
+     * Remove the specified $MODEL_NAME$ from storage.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $$MODEL_NAME_CAMEL$ = $this->$MODEL_NAME_CAMEL$Repository->findWithoutFail($id);
+
+        if (empty($$MODEL_NAME_CAMEL$)) {
+            Flash::error(__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.notfound'));
+
+            return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index'));
+        }
+
+        $name = $$MODEL_NAME_CAMEL$->$PRIMARY_KEY_NAME$;
+
+        $this->$MODEL_NAME_CAMEL$Repository->delete($id);
+
+        Flash::success(__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.destroy.success', ['name' => $name]));
+
+        return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index'));
+    }
+}

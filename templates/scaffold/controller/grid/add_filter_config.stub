@@ -1,0 +1,4 @@
+->addFilter(
+                            (new FilterConfig)
+                                ->setOperator(FilterConfig::OPERATOR_EQ)
+                        )

@@ -1,0 +1,7 @@
+(new FieldConfig)
+                        ->setName('$FIELD_NAME$')
+                        ->setLabel(__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.field.$FIELD_NAME$'))
+                        ->setSortable(true)
+                        $GRID_SET_SORTING$
+                        $GRID_FILTER$
+                    ,

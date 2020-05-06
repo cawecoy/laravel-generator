@@ -1,0 +1,43 @@
+<?php
+
+return [
+    'model.name' =>     '[0,1] $MODEL_NAME_HUMAN$|[2,*] $MODEL_NAME_PLURAL_HUMAN$',
+
+    'action' =>         'Action',
+    'addnew' =>         'Add New',
+    'edit' =>           'Edit',
+    'save' =>           'Save',
+    'show' =>           'Show',
+    'cancel' =>         'Cancel',
+    'delete' =>         'Delete',
+    'back' =>           'Back',
+    'areyousure' =>     'Are you sure?',
+    'form' =>           'Form',
+    'filter' =>         'Filter',
+
+    'store.success' =>  '$MODEL_NAME_HUMAN$ saved successfully.',
+    'update.success' => '$MODEL_NAME_HUMAN$ updated successfully.',
+    'destroy.success'=> '$MODEL_NAME_HUMAN$ :name deleted successfully.',
+    'notfound' =>       '$MODEL_NAME_HUMAN$ not found.',
+    '1' =>              'Yes',
+    '0' =>              'No',
+
+    'datepicker' => [
+        'applyLabel' => 'Apply',
+        'cancelLabel' => 'Cancel',
+        'fromLabel' => 'From',
+        'toLabel' => 'To',
+        'weekLabel' => 'W',
+        'customRangeLabel' => 'Custom Range',
+        'todayLabel' => 'Today',
+        'yesterdayLabel' => 'Yesterday',
+        'thisMonthLabel' => 'This Month',
+        'lastMonthLabel' => 'Last Month',
+        'last30DaysLabel' => 'Last 30 Days',
+        'last7DaysLabel' => 'Last 7 Days',
+        'currentPeriodLabel' => 'Current Period',
+        'foreverPeriodLabel' => 'Forever'
+    ],
+
+    $FIELDS_NAME_LABEL$
+];

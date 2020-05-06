@@ -30,7 +30,12 @@ class LanguageGenerator extends BaseGenerator
 
     public function generate()
     {
-        $templateData = get_template('lang.'.$this->locale.'.strings', 'laravel-generator');
+        if ($this->commandData->getAddOn('grid')) {
+            $templateData = get_template('lang.'.$this->locale.'.grid_strings', 'laravel-generator');
+        }
+        else{
+            $templateData = get_template('lang.'.$this->locale.'.strings', 'laravel-generator');
+        }
 
         $templateData = $this->fill_template($templateData);
 

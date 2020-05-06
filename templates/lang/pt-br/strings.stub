@@ -2,7 +2,7 @@
 
 return [
     'model.name' =>     '[0,1] $MODEL_NAME_HUMAN$|[2,*] $MODEL_NAME_PLURAL_HUMAN$',
-    
+
     'action' =>         'Ação',
     'addnew' =>         'Adicionar Novo',
     'edit' =>           'Editar',
@@ -13,6 +13,7 @@ return [
     'back' =>           'Voltar',
     'areyousure' =>     'Você tem certeza?',
     'form' =>           'Formulário',
+    'filter' =>         'Filtro',
 
     'store.success' =>  '$MODEL_NAME_HUMAN$ salvo com sucesso.',
     'update.success' => '$MODEL_NAME_HUMAN$ atualizado com sucesso.',
@@ -41,6 +42,8 @@ return [
     'print' =>          'Imprimir',
     'reset' =>          'Reiniciar',
     'reload' =>         'Recarregar',
-    
+    '1' =>              'Sim',
+    '0' =>              'Não',
+
     $FIELDS_NAME_LABEL$
 ];

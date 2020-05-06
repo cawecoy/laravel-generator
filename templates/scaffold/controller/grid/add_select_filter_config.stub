@@ -1,0 +1,8 @@
+->addFilter(
+                            (new SelectFilterConfig )
+                                ->setOptions([
+                                    '1' => __('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.1'),
+                                    '0' => __('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.0'),
+                                ])
+                                ->setSubmittedOnChange(true)
+                        )
