@@ -79,7 +79,7 @@ class $MODEL_NAME$Controller extends AppBaseController
                                     </a>';
                             }
                             if(auth()->user()->can('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.destroy')){
-                                $actions .= '<button type="button" class="btn btn-danger btn-xs form-delete-confirmation" title="'.__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.delete').'" data-url="'.route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.show', $dataRow->getCellValue('id')).'">
+                                $actions .= '<button type="button" class="btn btn-danger btn-xs form-delete-confirmation" title="'.__('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.delete').'" data-url="'.route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.destroy', $dataRow->getCellValue('id')).'">
                                                 <i class="glyphicon glyphicon-trash"></i>
                                              </button>';
                             }
