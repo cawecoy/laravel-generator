@@ -3,6 +3,7 @@
 namespace InfyOm\Generator\Commands\Publish;
 
 use InfyOm\Generator\Utils\FileUtil;
+use InfyOm\Generator\Common\CommandData;
 
 class LayoutPublishCommand extends PublishBaseCommand
 {
@@ -34,13 +35,17 @@ class LayoutPublishCommand extends PublishBaseCommand
 
     private function copyFiles()
     {
+        $this->commandData = new CommandData($this, CommandData::$COMMAND_TYPE_SCAFFOLD);
+
         $viewsPath = config('infyom.laravel_generator.path.views', base_path('resources/views/'));
         $publicPath = config('infyom.laravel_generator.path.public', base_path('public/'));
+        $langPath = config('infyom.laravel_generator.path.language', base_path('resources/lang/'));
+        $locale = config('infyom.laravel_generator.locale', 'en');
         $templateType = config('infyom.laravel_generator.templates', 'core-templates');
 
-        $this->createDirectories($viewsPath, $publicPath);
+        $this->createDirectories($viewsPath, $publicPath, $langPath, $locale);
 
-        $files = $this->getFiles($viewsPath, $publicPath);
+        $files = $this->getFiles($viewsPath, $publicPath, $langPath, $locale);
 
         foreach ($files as $stub => $destinationFile) {
             $sourceFile = get_template_file_path('scaffold/'.$stub, $templateType);
@@ -48,20 +53,23 @@ class LayoutPublishCommand extends PublishBaseCommand
         }
     }
 
-    private function createDirectories($viewsPath, $publicPath)
+    private function createDirectories($viewsPath, $publicPath, $langPath, $locale)
     {
         FileUtil::createDirectoryIfNotExist($viewsPath.'layouts');
         FileUtil::createDirectoryIfNotExist($viewsPath.'auth');
 
         FileUtil::createDirectoryIfNotExist($viewsPath.'auth/passwords');
         FileUtil::createDirectoryIfNotExist($viewsPath.'auth/emails');
-        
+
         FileUtil::createDirectoryIfNotExist($publicPath.'vendor/laravel-generator');
+
+        FileUtil::createDirectoryIfNotExist($langPath.$locale.'/admin');
     }
 
-    private function getFiles($viewsPath, $publicPath)
+    private function getFiles($viewsPath, $publicPath, $langPath, $locale)
     {
         return [
+            'layouts/datepicker'            => $langPath.$locale.'/admin/datepicker.php',
             'layouts/form-submission'       => $publicPath.'vendor/laravel-generator/form-submission.js',
             'layouts/app'                   => $viewsPath.'layouts/app.blade.php',
             'layouts/sidebar'               => $viewsPath.'layouts/sidebar.blade.php',
