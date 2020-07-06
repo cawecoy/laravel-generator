@@ -1,8 +1,9 @@
 (new DateRangePicker)
                                         ->setName('$FIELD_NAME$')
                                         ->setRenderSection('filters_row_column_$FIELD_NAME$')
-                                        ->setDefaultValue(['2020-01-01', date('Y-m-d')])
-                                        ->setJsOptions(['locale' => __('$LANGUAGE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.datepicker')])
+                                        ->setDefaultValue([null, null])
+                                        ->setSubmittedOnChange(true)
+                                        ->setJsOptions(['locale' => __('admin/datepicker'), 'format' => 'DD/MM/YYYY'])
                                         ->setFilteringFunc(function($val, EloquentDataProvider $provider) {
                                             $provider->getBuilder()->whereBetween('$FIELD_NAME$', [$val[0].' 00:00:00', $val[1].' 23:59:59']);
                                         })
