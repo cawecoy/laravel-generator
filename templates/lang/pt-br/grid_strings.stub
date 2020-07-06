@@ -22,22 +22,5 @@ return [
     '1' =>              'Sim',
     '0' =>              'Não',
 
-    'datepicker' => [
-        'applyLabel' => 'Aplicar',
-        'cancelLabel' => 'Cancelar',
-        'fromLabel' => 'De',
-        'toLabel' => 'Até',
-        'weekLabel' => 'S',
-        'customRangeLabel' => 'Período Customizado',
-        'todayLabel' => 'Hoje',
-        'yesterdayLabel' => 'Ontem',
-        'thisMonthLabel' => 'Este Mês',
-        'lastMonthLabel' => 'Último Mês',
-        'last30DaysLabel' => 'Últimos 30 Dias',
-        'last7DaysLabel' => 'Últimos 7 Dias',
-        'currentPeriodLabel' => 'Período atual',
-        'foreverPeriodLabel' => 'Para Sempre'
-    ],
-
     $FIELDS_NAME_LABEL$
 ];
