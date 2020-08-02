@@ -5,6 +5,8 @@
                                         ->setSubmittedOnChange(true)
                                         ->setJsOptions(['locale' => __('admin/datepicker'), 'format' => 'DD/MM/YYYY'])
                                         ->setFilteringFunc(function($val, EloquentDataProvider $provider) {
+                                            $val[0] = Carbon::createFromFormat('d/m/Y', $val[0])->format('Y-m-d');
+                                            $val[1] = Carbon::createFromFormat('d/m/Y', $val[1])->format('Y-m-d');
                                             $provider->getBuilder()->whereBetween('$FIELD_NAME$', [$val[0].' 00:00:00', $val[1].' 23:59:59']);
                                         })
                                     ,

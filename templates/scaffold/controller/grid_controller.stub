@@ -32,6 +32,7 @@ use Nayjest\Grids\FilterConfig;
 use Nayjest\Grids\SelectFilterConfig;
 use Nayjest\Grids\Grid;
 use Nayjest\Grids\GridConfig;
+use Carbon\Carbon;
 
 class $MODEL_NAME$Controller extends AppBaseController
 {
