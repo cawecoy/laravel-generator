@@ -26,6 +26,7 @@ class SwaggerGenerator
             switch (strtolower($field->fieldType)) {
                 case 'integer':
                 case 'increments':
+                case 'bigIncrements':
                 case 'smallinteger':
                 case 'long':
                 case 'bigint':

@@ -2,7 +2,7 @@
     {
         "name": "id",
         "label": "ID",
-        "dbType": "increments",
+        "dbType": "bigIncrements",
         "htmlType": "",
         "validations": "",
         "searchable": false,

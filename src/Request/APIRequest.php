@@ -17,7 +17,7 @@ class APIRequest extends FormRequest
      */
     public function response(array $errors)
     {
-        $messages = implode(' ', array_flatten($errors));
+        $messages = implode(' ', \Illuminate\Support\Arr::flatten($errors));
 
         return Response::json(ResponseUtil::makeError($messages), 400);
     }

@@ -197,7 +197,7 @@ class ModelGenerator extends BaseGenerator
 
         foreach ($this->commandData->fields as $field) {
             if (!empty($field->validations)) {
-                if (str_contains($field->validations, 'required')) {
+                if (\Illuminate\Support\Str::contains($field->validations, 'required')) {
                     $requiredFields[] = $field->name;
                 }
             }

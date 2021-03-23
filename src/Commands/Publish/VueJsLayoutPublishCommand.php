@@ -35,7 +35,7 @@ class VueJsLayoutPublishCommand extends PublishBaseCommand
     public function handle()
     {
         $version = $this->getApplication()->getVersion();
-        if (str_contains($version, '5.1')) {
+        if (\Illuminate\Support\Str::contains($version, '5.1')) {
             $this->laravelVersion = '5.1';
         } else {
             $this->laravelVersion = '5.2';

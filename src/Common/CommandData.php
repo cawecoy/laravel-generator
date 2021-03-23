@@ -110,7 +110,7 @@ class CommandData
     {
         $this->fields = [];
 
-        if ($this->getOption('fieldsFile') or $this->getOption('jsonFromGUI')) {
+        if ($this->getOption('fieldsFile') ?? $this->getOption('jsonFromGUI')) {
             $this->getInputFromFileOrJson();
         } elseif ($this->getOption('fromTable')) {
             $this->getInputFromTable();
@@ -169,7 +169,7 @@ class CommandData
         } else {
             $primaryKey->name = 'id';
         }
-        $primaryKey->parseDBType('increments');
+        $primaryKey->parseDBType('bigIncrements');
         $primaryKey->parseOptions('s,f,p,if,ii');
 
         $this->fields[] = $primaryKey;
