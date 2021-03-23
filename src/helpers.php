@@ -205,6 +205,6 @@ if (!function_exists('model_name_from_table_name')) {
      */
     function model_name_from_table_name($tableName)
     {
-        return ucfirst(camel_case(\Illuminate\Support\Str::singular($tableName)));
+        return ucfirst(\Illuminate\Support\Str::camel(\Illuminate\Support\Str::singular($tableName)));
     }
 }

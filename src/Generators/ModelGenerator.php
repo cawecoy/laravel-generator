@@ -158,12 +158,12 @@ class ModelGenerator extends BaseGenerator
                 return 'string';
             case '1t1':
             case 'mt1':
-                return '\\'.$this->commandData->config->nsModel.'\\'.$relation->inputs[0].' '.camel_case($relation->inputs[0]);
+                return '\\'.$this->commandData->config->nsModel.'\\'.$relation->inputs[0].' '.\Illuminate\Support\Str::camel($relation->inputs[0]);
             case '1tm':
                 return '\Illuminate\Database\Eloquent\Collection'.' '.$relation->inputs[0];
             case 'mtm':
             case 'hmt':
-                return '\Illuminate\Database\Eloquent\Collection'.' '.camel_case($relation->inputs[1]);
+                return '\Illuminate\Database\Eloquent\Collection'.' '.\Illuminate\Support\Str::camel($relation->inputs[1]);
             default:
                 return $db_type;
         }

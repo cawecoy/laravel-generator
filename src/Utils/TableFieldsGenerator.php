@@ -86,7 +86,7 @@ class TableFieldsGenerator
                     $field = $this->generateIntFieldInput($column, 'bigInteger');
                     break;
                 case 'boolean':
-                    $name = title_case(str_replace('_', ' ', $column->getName()));
+                    $name = \Illuminate\Support\Str::title(str_replace('_', ' ', $column->getName()));
                     $field = $this->generateField($column, 'boolean', 'checkbox,1');
                     break;
                 case 'datetime':
